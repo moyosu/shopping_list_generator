@@ -1,0 +1,108 @@
+@LIST_ID = eaa574d0-82b6-4a34-bb42-1db78295ec8e
+@ITEM_ID = 68d87358-f42d-450c-ad10-02934c4ccae2
+@NON_EXIST_LIST_ID = 68d87358-4a34-bb42-1db78295ec8e
+@NON_EXIST_ITEM_ID = eaa574d0-f42d-450c-ad10-02934c4ccae2
+
+### Create a new shopping list
+POST http://localhost:3001/lists
+Content-Type: application/json
+
+{
+    "name": "Grocery List"
+}
+
+### Create another shopping list
+POST http://localhost:3001/lists
+Content-Type: application/json
+
+{
+    "name": "Grocery List #2"
+}
+
+### Get all shopping lists
+GET http://localhost:3001/lists
+
+### Add item to Grocery List (replace LIST_ID with actual ID from response)
+POST http://localhost:3001/lists/{{LIST_ID}}/items
+Content-Type: application/json
+
+{
+    "name": "Milk",
+    "quantity": 2
+}
+
+### Add another item
+POST http://localhost:3001/lists/{{LIST_ID}}/items
+Content-Type: application/json
+
+{
+    "name": "Bread",
+    "quantity": 1
+}
+
+### Update item (replace LIST_ID and ITEM_ID with actual IDs)
+PUT http://localhost:3001/lists/{{LIST_ID}}/items/{{ITEM_ID}}
+Content-Type: application/json
+
+{
+    "name": "Whole Milk",
+    "quantity": 3
+}
+
+### Mark item as purchased
+PATCH http://localhost:3001/lists/{{LIST_ID}}/items/{{ITEM_ID}}
+Content-Type: application/json
+
+{
+    "purchased": true
+}
+
+### Delete item from list
+DELETE http://localhost:3001/lists/{{LIST_ID}}/items/{{ITEM_ID}}
+
+### Delete entire shopping list
+DELETE http://localhost:3001/lists/{{LIST_ID}}
+
+
+
+### Error test cases
+
+### Try to create list without name
+POST http://localhost:3001/lists
+Content-Type: application/json
+
+{}
+
+### Try to create list with invalid name type
+POST http://localhost:3001/lists
+Content-Type: application/json
+
+{
+    "name": 123
+}
+
+### Try to add item with invalid quantity
+POST http://localhost:3001/lists/{{LIST_ID}}/items
+Content-Type: application/json
+
+{
+    "name": "Sugar",
+    "quantity": "two"
+}
+
+### Try to mark item as purchased with invalid boolean
+PATCH http://localhost:3001/lists/{{LIST_ID}}/items/{{ITEM_ID}}
+Content-Type: application/json
+
+{
+    "purchased": "yes"
+}
+
+### Try to access non-existent list
+GET http://localhost:3001/lists/{{NON_EXIST_LIST_ID}}/items
+
+### Try to access non-existent item
+GET http://localhost:3001/lists/{{LIST_ID}}/items/{{NON_EXIST_ITEM_ID}}
+
+### Try to delete non-existent list
+DELETE http://localhost:3001/lists/{{NON_EXIST_LIST_ID}}
