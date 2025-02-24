@@ -59,8 +59,59 @@ When Confused:
 ### How to programmatically REQUEST data
 
 ```
+### Create a new shopping list
+POST http://localhost:3001/lists
+Content-Type: application/json
+
+{
+    "name": "Grocery List"
+}
+
+### Add item to Grocery List (replace LIST_ID with actual ID from response)
+POST http://localhost:3001/lists/{{LIST_ID}}/items
+Content-Type: application/json
+
+{
+    "name": "Milk",
+    "quantity": 2
+}
+
+### Update item (replace LIST_ID and ITEM_ID with actual IDs)
+PUT http://localhost:3001/lists/{{LIST_ID}}/items/{{ITEM_ID}}
+Content-Type: application/json
+
+{
+    "name": "Whole Milk",
+    "quantity": 3
+}
+
+### Mark item as purchased
+PATCH http://localhost:3001/lists/{{LIST_ID}}/items/{{ITEM_ID}}
+Content-Type: application/json
+
+{
+    "purchased": true
+}
+```
+### How to programmatically REQUEST data
+```
+### Get all shopping lists
+GET http://localhost:3001/lists
 
 ```
 
 ### UML Sequence Diagram
 ![UML Sequence Diagram](/shopping_list_service.png)
+
+### Mitigation Plan
+- #### Shopping List Generator is intended for *Tom Cocker*
+- #### Current Status: Complete
+- #### Access Microservice: ```gh repo clone moyosu/shopping_list_generator``` or [GITHUB](https://github.com/moyosu/shopping_list_generator.git)
+- #### If teammate cannot access/call this microservice: Reach out to me via Discord server mentioned above. I will be available to help in the morning on weekdays before noon.
+- #### Please try to make your own research on how to use REST API and/or git. If unable to access/call microservice for more than a day, reach out to me!
+- #### Things to know:
+  - I would recommended downloading Github Desktop for easier clone a repo.
+  - After cloning the repo, run `npm install` or `npm ci` to install all dependencies.
+  - run `npm start` to spin up the microservice.
+  - I have to push a commit after you've cloned the repo and your origin/main branch is behind, run `git fetch` and `git pull` for the latest commit.
+  - If you intend to modify the code, consider create a new branch using `git -b checkout [new-branch-name]`.
