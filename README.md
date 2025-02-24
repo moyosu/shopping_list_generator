@@ -114,4 +114,4 @@ GET http://localhost:3001/lists
   - After cloning the repo, run `npm install` or `npm ci` to install all dependencies.
   - run `npm start` to spin up the microservice.
   - I have to push a commit after you've cloned the repo and your origin/main branch is behind, run `git fetch` and `git pull` for the latest commit.
-  - If you intend to modify the code, consider create a new branch using `git -b checkout [new-branch-name]`.
+  - If you intend to modify the code, consider create a new branch using `git checkout -b [new-branch-name]`.
